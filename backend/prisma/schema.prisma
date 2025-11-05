@@ -1,0 +1,17 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Resume {
+  id        String   @id @default(cuid())
+  filename  String
+  text      String
+  status    String   @default("pending") // "pending" | "analyzed" | "failed"
+  analysis  Json?                              // stores structured AI output
+  createdAt DateTime @default(now())
+}
